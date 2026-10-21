@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#070910">
+<title>Serenity Hub — Key System</title>
+<style>
+:root {
+  --pink: #ff64b4;
+  --pink-glow: #ff4fa3;
+  --blue: #35d9ff;
+  --blue-dark: #438aff;
+  --bg: #070910;
+  --panel: rgba(13, 16, 29, .94);
+  --muted: #8e9ab1;
+  --white: #f7f9ff;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px 15px;
+  overflow-x: hidden;
+  background:
+    radial-gradient(ellipse at 15% 20%, #ff4fa315, transparent 40%),
+    radial-gradient(ellipse at 85% 78%, #35d9ff14, transparent 42%),
+    var(--bg);
+  color: var(--white);
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+#particles {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.particle {
+  position: absolute;
+  bottom: -15px;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--blue);
+  box-shadow: 0 0 10px var(--blue);
+  animation: particleRise linear infinite;
+}
+.card {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 410px;
+  padding: 32px 25px 23px;
+  overflow: hidden;
+  border: 1px solid #ffffff13;
+  border-radius: 26px;
+  background: var(--panel);
+  box-shadow:
+    0 25px 90px #0009,
+    0 0 45px #35d9ff08,
+    inset 0 1px 0 #ffffff0b;
+  backdrop-filter: blur(20px);
+  animation: cardEnter .75s ease-out both;
+}
+.card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 12%;
+  width: 76%;
+  height: 2px;
+  background: linear-gradient(
+    90deg, transparent, var(--pink), var(--blue), transparent
+  );
+  box-shadow: 0 0 16px #35d9ff50;
+}
+.card::after {
+  content: "";
+  position: absolute;
+  top: -120px;
+  left: -80px;
+  width: 180px;
+  height: 180px;
+  border-radius: 50%;
+  background: #ff4fa308;
+  filter: blur(40px);
+  pointer-events: none;
+}
+/* LOGO: STRAIGHT, CLEAN AND BALANCED */
+.logo-wrap {
+  position: relative;
+  width: 104px;
+  height: 104px;
+  margin: 0 auto 23px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: logoFloat 4s ease-in-out infinite;
+}
+.logo-halo {
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: 27px;
+  background: linear-gradient(
+    135deg,
+    var(--pink),
+    #a855f7 42%,
+    var(--blue) 80%,
+    var(--blue-dark)
+  );
+  box-shadow:
+    0 0 22px #ff4fa31c,
+    0 0 30px #35d9ff15;
+}
+.logo-halo::after {
+  content: "";
+  position: absolute;
+  inset: 2px;
+  border-radius: 25px;
+  background: #090c16;
+}
+.logo {
+  position: relative;
+  z-index: 1;
+  width: 94px;
+  height: 94px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 23px;
+  border: 1px solid #ffffff0b;
+  background: linear-gradient(145deg, #171323, #0a1926);
+}
+.sr {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  padding-right: 4px;
+  font-family: "Arial", "Segoe UI", sans-serif;
+  font-size: 43px;
+  font-weight: 900;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: -1.5px;
+  transform: none;
+  user-select: none;
+}
+.sr .s {
+  color: #ff70b6;
+  text-shadow: 0 0 14px #ff4fa344;
+}
+.sr .r {
+  color: var(--blue);
+  text-shadow: 0 0 14px #35d9ff44;
+}
+.eyebrow {
+  margin-bottom: 9px;
+  text-align: center;
+  color: var(--blue);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+h1 {
+  text-align: center;
+  font-size: clamp(29px, 8vw, 35px);
+  font-weight: 900;
+  line-height: 1.15;
+  letter-spacing: -1.4px;
+  background: linear-gradient(
+    100deg, #fff 8%, #ff9dce 47%, #6be6ff 95%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.subtitle {
+  max-width: 290px;
+  margin: 12px auto 24px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.7;
+}
+.status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 21px;
+  color: #d0d8e8;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+}
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #5af2b2;
+  box-shadow: 0 0 12px #5af2b2;
+  animation: statusPulse 1.8s ease-in-out infinite;
+}
+.key-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #dce5f8;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.key-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  padding: 7px;
+  border: 1px solid #ffffff15;
+  border-radius: 14px;
+  background: #070a13;
+  transition: border-color .25s, box-shadow .25s;
+}
+.key-box:focus-within {
+  border-color: #35d9ff80;
+  box-shadow: 0 0 0 3px #35d9ff0d;
+}
+.key-value {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 5px 9px 8px;
+  overflow-wrap: anywhere;
+  color: #e6f7ff;
+  font-family: Consolas, "Courier New", monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  user-select: text;
+}
+.copy-btn {
+  flex-shrink: 0;
+  min-height: 42px;
+  padding: 0 13px;
+  border: 0;
+  border-radius: 10px;
+  background: linear-gradient(110deg, #ff4fa3, #d65cff 50%, #398cff);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 900;
+  letter-spacing: .4px;
+  cursor: pointer;
+  box-shadow: 0 5px 20px #d95cff1f;
+  transition: transform .2s, filter .2s, box-shadow .2s;
+}
+.copy-btn:hover {
+  filter: brightness(1.12);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px #d95cff30;
+}
+.copy-btn:active {
+  transform: scale(.96);
+}
+.copy-btn:focus-visible {
+  outline: 2px solid white;
+  outline-offset: 3px;
+}
+.feedback {
+  min-height: 18px;
+  margin-top: 10px;
+  text-align: center;
+  color: #72f5bd;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.divider {
+  height: 1px;
+  margin: 17px 0;
+  background: linear-gradient(90deg, transparent, #ffffff18, transparent);
+}
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #7e899f;
+  font-size: 10px;
+}
+.footer span:last-child {
+  color: #b8c9df;
+}
+/* ANIMATIONS */
+@keyframes cardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+@keyframes logoFloat {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+@keyframes statusPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .55; transform: scale(.8); }
+}
+@keyframes particleRise {
+  0% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+  15% { opacity: .55; }
+  85% { opacity: .35; }
+  100% {
+    transform: translateY(-110vh);
+    opacity: 0;
+  }
+}
+/* MOBILE */
+@media (max-width: 420px) {
+  .card {
+    padding: 28px 18px 21px;
+    border-radius: 23px;
+  }
+  .logo-wrap {
+    width: 98px;
+    height: 98px;
+  }
+  .logo {
+    width: 88px;
+    height: 88px;
+  }
+  .sr {
+    font-size: 40px;
+    gap: 5px;
+  }
+  .key-value {
+    font-size: 10px;
+  }
+  .copy-btn {
+    padding: 0 10px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+</style>
+</head>
+<body>
+<div id="particles" aria-hidden="true"></div>
+<main class="card">
+  <div class="logo-wrap" aria-label="Serenity Hub logo">
+    <div class="logo-halo"></div>
+    <div class="logo">
+      <div class="sr">
+        <span class="s">S</span>
+        <span class="r">R</span>
+      </div>
+    </div>
+  </div>
+  <div class="eyebrow">Premium Access</div>
+  <h1>Serenity Hub</h1>
+  <p class="subtitle">
+    Your key is ready. Copy it below and use it in your supported application.
+  </p>
+  <div class="status">
+    <span class="status-dot"></span>
+    <span>Key Available</span>
+  </div>
+  <label class="key-label" for="keyValue">YOUR ACCESS KEY</label>
+  <div class="key-box">
+    <div class="key-value" id="keyValue">SerenityHubKeyKaowowj - KalwpwjeneoAklqpwwib</div>
+    <button class="copy-btn" id="copyBtn" type="button">COPY KEY</button>
+  </div>
+  <p class="feedback" id="feedback" role="status" aria-live="polite"></p>
+  <div class="divider"></div>
+  <div class="footer">
+    <span>© Serenity Hub</span>
+    <span>Pink × Ocean Blue</span>
+  </div>
+</main>
+<script>
+const keyElement = document.getElementById("keyValue");
+const copyButton = document.getElementById("copyBtn");
+const feedback = document.getElementById("feedback");
+async function copyKey() {
+  const key = keyElement.textContent.trim();
+  try {
+    if (navigator.clipboard && window.isSecureContext) {
+      await navigator.clipboard.writeText(key);
+    } else {
+      const textarea = document.createElement("textarea");
+      textarea.value = key;
+      textarea.setAttribute("readonly", "");
+      textarea.style.position = "fixed";
+      textarea.style.left = "-9999px";
+      document.body.appendChild(textarea);
+      textarea.select();
+      const success = document.execCommand("copy");
+      textarea.remove();
+      if (!success) throw new Error("Copy failed");
+    }
+    copyButton.textContent = "COPIED ✓";
+    feedback.textContent = "Key copied successfully!";
+    window.setTimeout(() => {
+      copyButton.textContent = "COPY KEY";
+    }, 1800);
+  } catch (error) {
+    feedback.textContent =
+      "Copy failed. Please select the key and copy it manually.";
+  }
+}
+copyButton.addEventListener("click", copyKey);
+// Floating background particles
+const particleLayer = document.getElementById("particles");
+const reducedMotion = window.matchMedia(
+  "(prefers-reduced-motion: reduce)"
+).matches;
+if (!reducedMotion) {
+  for (let i = 0; i < 28; i++) {
+    const particle = document.createElement("span");
+    particle.className = "particle";
+    particle.style.left = Math.random() * 100 + "%";
+    particle.style.animationDuration = (8 + Math.random() * 12) + "s";
+    particle.style.animationDelay = (Math.random() * 10) + "s";
+    if (i % 2 === 0) {
+      particle.style.background = "#ff64b4";
+      particle.style.boxShadow = "0 0 10px #ff64b4";
+    }
+    const size = 2 + Math.random() * 2;
+    particle.style.width = size + "px";
+    particle.style.height = size + "px";
+    particleLayer.appendChild(particle);
+  }
+}
+</script>
+</body>
+</html>
